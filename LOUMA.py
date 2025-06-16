@@ -136,19 +136,19 @@ if uploaded_file:
             df_summary['NOM_VENDEUR'].astype(str).str.strip().str.upper()
         )
 
-        df_old["KEY"] = create_key(df_old)
+        #df_old["KEY"] = create_key(df_old)
 
         # Préparer df_summary de la semaine courante
         
-        df_history["KEY"] = create_key(df_history)
-        df_history = df_history[["KEY", "TOTAL_SIM"]].copy()
+        #df_history["KEY"] = create_key(df_history)
+        #df_history = df_history[["KEY", "TOTAL_SIM"]].copy()
         
         #
         # Renommer la colonne dans df_summary
         df_history = df_history.rename(columns={'TOTAL_SIM': nom_col_semaine})
         #
-        #df_history_clean = df_history[['DRV', 'PVT', 'PRENOM_VENDEUR', 'NOM_VENDEUR', nom_col_semaine]]
-        df_history_clean = df_history[["KEY", nom_col_semaine]]
+        df_history_clean = df_history[['DRV', 'PVT', 'PRENOM_VENDEUR', 'NOM_VENDEUR', nom_col_semaine]]
+        #df_history_clean = df_history[["KEY", nom_col_semaine]]
         
         # Renommer la colonne dans df_summary
         #df_history_clean = df_history_clean.rename(columns={'TOTAL_SIM': nom_col_semaine})
@@ -156,12 +156,12 @@ if uploaded_file:
         
 
         # Fusionner avec l'existant
-        #df_merged = pd.merge(df_old, df_history_clean, on=['DRV', 'PVT', 'PRENOM_VENDEUR', 'NOM_VENDEUR'], how='outer')
+        df_merged = pd.merge(df_old, df_history_clean, on=['DRV', 'PVT', 'PRENOM_VENDEUR', 'NOM_VENDEUR'], how='outer')
 
-        df_merged = pd.merge(df_old, df_history_clean, on="KEY", how="left")
-        df_merged[nom_col_semaine] = df_merged[nom_col_semaine].fillna(0)
+        #df_merged = pd.merge(df_old, df_history_clean, on="KEY", how="left")
+        #df_merged[nom_col_semaine] = df_merged[nom_col_semaine].fillna(0)
 
-        df_merged = df_merged.drop(columns=["KEY"])
+        #df_merged = df_merged.drop(columns=["KEY"])
 
 
 
